@@ -7,7 +7,7 @@ import re
 import os
 from difflib import SequenceMatcher
 from typing import Optional, Dict, Any, List
-from langsmith import traceable
+
 import time
 # ═══════════════════════════════════════════════════════════════════════════════
 # PRE-COMPILED REGEX & CONSTANTS (Performance boost)
@@ -19,9 +19,7 @@ import streamlit as st
 os.environ["GROQ_API_KEY"] = st.secrets["GROQ_API_KEY"]
 
 # LangSmith
-os.environ["LANGCHAIN_API_KEY"] = st.secrets["LANGCHAIN_API_KEY"]
-os.environ["LANGCHAIN_PROJECT"] = st.secrets["LANGCHAIN_PROJECT"]
-os.environ["LANGCHAIN_TRACING_V2"] = st.secrets["LANGCHAIN_TRACING_V2"]
+
 
 # ═══════════════════════════════════════════════════════════════════════════════
 
@@ -362,7 +360,7 @@ def handle_schedule_query(text: str, records: List[Dict], messages: List[Dict]) 
 # AI FALLBACK
 # ═══════════════════════════════════════════════════════════════════════════════
 
-@traceable(name="chatbot_response")
+
 def ask_groq(messages: List[Dict]) -> str:
     client = Groq(api_key=st.secrets["GROQ_API_KEY"])
     recent_messages = messages[-10:]
